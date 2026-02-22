@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Profesional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in 1s ease-out;
+        }
+        .animate-float {
+            animation: float 10s infinite ease-in-out;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+    
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 backdrop-blur-md bg-gray-900/70 border-b border-gray-700/50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Portfolio
+            </div>
+            <div class="flex gap-6">
+                <a href="#inicio" class="capitalize transition-all duration-300 hover:text-purple-400 text-gray-300">inicio</a>
+                <a href="#proyectos" class="capitalize transition-all duration-300 hover:text-purple-400 text-gray-300">proyectos</a>
+                <a href="#habilidades" class="capitalize transition-all duration-300 hover:text-purple-400 text-gray-300">habilidades</a>
+                <a href="#contacto" class="capitalize transition-all duration-300 hover:text-purple-400 text-gray-300">contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <div class="absolute inset-0 opacity-20" id="particles"></div>
+        
+        <div class="text-center z-10 px-6">
+            <div class="mb-6 inline-block">
+                <div class="w-32 h-32 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 p-1 animate-pulse">
+                    <div class="w-full h-full rounded-full bg-gray-800 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-400">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <h1 class="text-6xl font-bold mb-4 animate-fade-in">
+                <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+                    Tu Nombre
+                </span>
+            </h1>
+            
+            <p class="text-2xl text-gray-300 mb-8">
+                Desarrollador Backend | Especialista en Odoo & Java
+            </p>
+            
+            <div class="flex gap-4 justify-center mb-12">
+                <a href="#proyectos" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full hover:scale-105 transition-transform duration-300 font-semibold">
+                    Ver Proyectos
+                </a>
+                <button class="px-8 py-3 border-2 border-purple-500 rounded-full hover:bg-purple-500/20 transition-all duration-300 font-semibold">
+                    Descargar CV
+                </button>
+            </div>
+            
+            <div class="flex gap-6 justify-center">
+                <a href="mailto:edgar2410067@hybridge.education" class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 transition-all duration-300 hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        
+        <svg class="absolute bottom-10 animate-bounce" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="proyectos" class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center">
+                <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Proyectos Destacados
+                </span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="relative group cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+                    <div class="relative bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 transform group-hover:scale-105">
+                        <div class="flex justify-between items-start mb-4">
+                            <svg class="text-purple-400" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                            <svg class="text-gray-500 group-hover:text-purple-400 transition-all duration-300" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold mb-3">Programación en Odoo</h3>
+                        <p class="text-gray-400 mb-4">Desarrollo de módulos personalizados y automatización de procesos empresariales en Odoo</p>
+                        
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">Python</span>
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">Odoo</span>
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">PostgreSQL</span>
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">XML</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="relative group cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+                    <div class="relative bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 transform group-hover:scale-105">
+                        <div class="flex justify-between items-start mb-4">
+                            <svg class="text-purple-400" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                            <svg class="text-gray-500 group-hover:text-purple-400 transition-all duration-300" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold mb-3">Conexión Biométrico a Odoo</h3>
+                        <p class="text-gray-400 mb-4">Integración de dispositivos biométricos con Odoo para control de asistencia y gestión de personal</p>
+                        
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">Python</span>
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">Odoo</span>
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">API REST</span>
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">SDK ZKTeco</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="relative group cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-r from-green-600 to-teal-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+                    <div class="relative bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 transform group-hover:scale-105">
+                        <div class="flex justify-between items-start mb-4">
+                            <svg class="text-purple-400" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                            <svg class="text-gray-500 group-hover:text-purple-400 transition-all duration-300" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold mb-3">Proyectos Spring Boot</h3>
+                        <p class="text-gray-400 mb-4">Desarrollo de aplicaciones backend robustas y escalables con Spring Boot y arquitectura REST</p>
+                        
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">Java</span>
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">Spring Boot</span>
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">MySQL</span>
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">JPA/Hibernate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="relative group cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+                    <div class="relative bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 transform group-hover:scale-105">
+                        <div class="flex justify-between items-start mb-4">
+                            <svg class="text-purple-400" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                            <svg class="text-gray-500 group-hover:text-purple-400 transition-all duration-300" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold mb-3">Sistemas en C/C++</h3>
+                        <p class="text-gray-400 mb-4">Desarrollo de aplicaciones de alto rendimiento y sistemas de bajo nivel con C y C++</p>
+                        
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">C</span>
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">C++</span>
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">STL</span>
+                            <span class="px-3 py-1 bg-gray-700/50 rounded-full text-sm text-purple-300 border border-purple-500/30">Punteros</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="habilidades" class="py-20 px-6 bg-gray-900/50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center">
+                <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Habilidades
+                </span>
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="group">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold">Python</span>
+                        <span class="text-purple-400">95%</span>
+                    </div>
+                    <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full skill-bar" style="width: 0%" data-width="95"></div>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold">Odoo</span>
+                        <span class="text-purple-400">90%</span>
+                    </div>
+                    <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full skill-bar" style="width: 0%" data-width="90"></div>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold">Java</span>
+                        <span class="text-purple-400">85%</span>
+                    </div>
+                    <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full skill-bar" style="width: 0%" data-width="85"></div>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold">C++</span>
+                        <span class="text-purple-400">80%</span>
+                    </div>
+                    <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full skill-bar" style="width: 0%" data-width="80"></div>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold">C</span>
+                        <span class="text-purple-400">75%</span>
+                    </div>
+                    <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full skill-bar" style="width: 0%" data-width="75"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-20 px-6">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">
+                <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    ¿Trabajamos Juntos?
+                </span>
+            </h2>
+            <p class="text-gray-400 mb-8 text-lg">
+                Estoy disponible para proyectos freelance y oportunidades de colaboración
+            </p>
+            <a href="mailto:edgar2410067@hybridge.education" class="px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full hover:scale-105 transition-transform duration-300 font-semibold text-lg shadow-lg shadow-purple-500/50">
+                Contáctame
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-gray-700/50 text-center text-gray-500">
+        <p>© 2026 Edgar Vásquez. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Crear partículas flotantes
+        const particlesContainer = document.getElementById('particles');
+        
+        // Crear 50 partículas
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'absolute bg-purple-500 rounded-full';
+            
+            // Tamaño aleatorio
+            const size = Math.random() * 4 + 1;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            // Posición aleatoria
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            
+            // Animación aleatoria
+            const duration = Math.random() * 10 + 10;
+            particle.style.animation = `float ${duration}s infinite ease-in-out`;
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            
+            particlesContainer.appendChild(particle);
+        }
+
+        // Animar barras de habilidades cuando sean visibles
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skillBars = entry.target.querySelectorAll('.skill-bar');
+                    skillBars.forEach(bar => {
+                        const width = bar.getAttribute('data-width');
+                        setTimeout(() => {
+                            bar.style.width = width + '%';
+                            bar.style.transition = 'width 1.5s ease-out';
+                        }, 100);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const skillsSection = document.getElementById('habilidades');
+        if (skillsSection) {
+            observer.observe(skillsSection);
+        }
+
+        // Smooth scroll para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Actualizar navegación activa al hacer scroll
+        window.addEventListener('scroll', () => {
+            const sections = ['inicio', 'proyectos', 'habilidades', 'contacto'];
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= 100 && rect.bottom >= 100) {
+                        current = section;
+                    }
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-purple-400');
+                link.classList.add('text-gray-300');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('text-purple-400');
+                    link.classList.remove('text-gray-300');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
