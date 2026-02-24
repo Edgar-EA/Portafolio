@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edgar Vásquez — Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black:     #000000;
+            --black-1:   #080808;
+            --black-2:   #0f0f0f;
+            --black-3:   #161616;
+            --black-4:   #1e1e1e;
+            --black-5:   #2a2a2a;
+            --white:     #ffffff;
+            --dim:       #a0a0a0;
+            --dimmer:    #505050;
+            --accent:    #e8ff00;
+            --accent-bg: rgba(232,255,0,0.1);
+            --cyan:      #00e5ff;
+            --f-d: 'Syne', 'Arial Black', Arial, sans-serif;
+            --f-m: 'DM Mono', 'Courier New', monospace;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--black); color: var(--white); font-family: var(--f-d); overflow-x: hidden; cursor: none; }
+
+        /* CURSOR */
+        #cur  { width:10px; height:10px; background:var(--accent); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .2s,height .2s; }
+        #cur2 { width:34px; height:34px; border:1px solid rgba(232,255,0,.4); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); }
+        body.ch #cur  { width:6px; height:6px; }
+        body.ch #cur2 { width:52px; height:52px; border-color:var(--accent); }
+
+        /* NAV */
+        nav { position:fixed; top:0; left:0; width:100%; z-index:100; padding:22px 48px; display:flex; justify-content:space-between; align-items:center; transition:background .4s,border-color .4s; }
+        nav.s { background:rgba(0,0,0,.96); border-bottom:1px solid var(--black-4); }
+        .logo { font-weight:800; font-size:1.1rem; color:var(--white); text-decoration:none; letter-spacing:-.02em; }
+        .logo em { color:var(--accent); font-style:normal; }
+        .nl { display:flex; gap:32px; list-style:none; }
+        .nl a { font-family:var(--f-m); font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--dim); text-decoration:none; position:relative; transition:color .3s; }
+        .nl a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--accent); transition:width .3s; }
+        .nl a:hover,.nl a.act { color:var(--accent); }
+        .nl a:hover::after,.nl a.act::after { width:100%; }
+        .hbg { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:none; padding:4px; }
+        .hbg span { display:block; width:24px; height:1px; background:var(--white); }
+
+        /* HERO */
+        #inicio { min-height:100vh; display:flex; align-items:center; padding:110px 48px 60px; position:relative; overflow:hidden; }
+        .hero-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; max-width:1200px; width:100%; margin:auto; align-items:center; }
+        .htag { font-family:var(--f-m); font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:22px; display:flex; align-items:center; gap:12px; }
+        .htag::before { content:''; width:28px; height:1px; background:var(--accent); }
+        .hname { font-size:clamp(3.2rem,6vw,6.5rem); font-weight:800; line-height:.92; letter-spacing:-.04em; margin-bottom:26px; }
+        .hname .a { color:var(--accent); }
+        .hsub { font-family:var(--f-m); font-size:.88rem; line-height:1.9; color:var(--dim); margin-bottom:40px; max-width:420px; }
+        .hbtns { display:flex; gap:14px; flex-wrap:wrap; }
+
+        .btn-p { padding:13px 30px; background:var(--accent); color:var(--black); font-family:var(--f-d); font-weight:700; font-size:.88rem; text-decoration:none; cursor:none; display:inline-block; position:relative; overflow:hidden; transition:transform .25s; }
+        .btn-p::before { content:''; position:absolute; inset:0; background:#fff; transform:translateX(-101%); transition:transform .4s cubic-bezier(.16,1,.3,1); }
+        .btn-p:hover::before { transform:translateX(0); }
+        .btn-p:hover { transform:translateY(-2px); }
+        .btn-p span { position:relative; z-index:1; }
+        .btn-o { padding:12px 30px; background:transparent; color:var(--white); font-family:var(--f-d); font-weight:600; font-size:.88rem; text-decoration:none; cursor:none; display:inline-block; border:1px solid var(--black-5); transition:border-color .3s; }
+        .btn-o:hover { border-color:var(--dim); }
+
+        /* AVATAR */
+        .hright { display:flex; align-items:center; justify-content:center; }
+        .avwrap { position:relative; }
+        .ring { width:300px; height:300px; border:1px solid var(--black-4); border-radius:50%; position:relative; animation:spin 20s linear infinite; }
+        .ring::before,.ring::after { content:''; position:absolute; width:10px; height:10px; background:var(--accent); border-radius:50%; }
+        .ring::before { top:-5px; left:50%; transform:translateX(-50%); }
+        .ring::after  { bottom:-5px; left:50%; transform:translateX(-50%); }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .ring-inner { position:absolute; inset:20px; background:var(--black-2); border-radius:50%; border:1px solid var(--black-3); display:flex; align-items:center; justify-content:center; }
+        .initials { font-size:4rem; font-weight:800; color:var(--black-4); letter-spacing:-.05em; user-select:none; }
+        .hstats { position:absolute; right:-44px; bottom:10px; display:flex; flex-direction:column; gap:10px; }
+        .stat { background:var(--black-2); border:1px solid var(--black-4); padding:13px 16px; text-align:right; min-width:105px; }
+        .sn { font-size:1.6rem; font-weight:800; color:var(--accent); line-height:1; }
+        .sl { font-family:var(--f-m); font-size:.6rem; letter-spacing:.1em; color:var(--dim); text-transform:uppercase; margin-top:3px; }
+
+        /* SCROLL HINT */
+        .sh { position:absolute; bottom:30px; left:48px; display:flex; align-items:center; gap:14px; }
+        .sh span { font-family:var(--f-m); font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--dimmer); }
+        .sh-bar { width:48px; height:1px; background:var(--black-5); overflow:hidden; position:relative; }
+        .sh-fill { position:absolute; top:0; left:-100%; width:100%; height:100%; background:var(--accent); animation:sha 1.6s ease infinite; }
+        @keyframes sha { 0%{left:-100%} 100%{left:100%} }
+
+        /* SECTIONS */
+        section { padding:120px 48px; }
+        .wrap { max-width:1200px; margin:auto; }
+        .sh2 { display:flex; align-items:flex-end; gap:40px; margin-bottom:70px; }
+        .snum { font-family:var(--f-m); font-size:.68rem; letter-spacing:.2em; color:var(--accent); margin-bottom:10px; }
+        .stitle { font-size:clamp(2rem,4vw,3.4rem); font-weight:800; letter-spacing:-.04em; line-height:1; }
+        .sline { flex:1; height:1px; background:var(--black-4); margin-bottom:8px; }
+
+        /* REVEAL */
+        .r { opacity:0; transform:translateY(32px); transition:opacity .7s ease, transform .7s cubic-bezier(.16,1,.3,1); }
+        .r.in { opacity:1; transform:translateY(0); }
+        .r.d1{transition-delay:.1s} .r.d2{transition-delay:.2s} .r.d3{transition-delay:.3s} .r.d4{transition-delay:.4s}
+
+        /* PROJECTS */
+        #proyectos { background:var(--black-1); }
+        .pgrid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--black-4); }
+        .pc { background:var(--black-1); padding:44px; position:relative; overflow:hidden; cursor:none; }
+        .pc::before { content:''; position:absolute; inset:0; background:var(--black-3); transform:translateY(100%); transition:transform .5s cubic-bezier(.16,1,.3,1); }
+        .pc:hover::before { transform:translateY(0); }
+        .pci { position:relative; z-index:1; }
+        .pnum { font-family:var(--f-m); font-size:.62rem; letter-spacing:.2em; color:var(--dimmer); margin-bottom:26px; }
+        .pico { width:44px; height:44px; border:1px solid var(--black-5); display:flex; align-items:center; justify-content:center; margin-bottom:18px; transition:border-color .3s,background .3s; }
+        .pc:hover .pico { border-color:var(--accent); background:var(--accent-bg); }
+        .pc:hover .pico svg { stroke:var(--accent); }
+        .pname { font-size:1.35rem; font-weight:700; letter-spacing:-.02em; margin-bottom:10px; transition:color .3s; }
+        .pc:hover .pname { color:var(--accent); }
+        .pdesc { font-family:var(--f-m); font-size:.77rem; line-height:1.85; color:var(--dim); margin-bottom:26px; }
+        .ptags { display:flex; flex-wrap:wrap; gap:7px; }
+        .ptag { font-family:var(--f-m); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; padding:5px 10px; border:1px solid var(--black-5); color:var(--dimmer); transition:border-color .3s,color .3s; }
+        .pc:hover .ptag { border-color:rgba(232,255,0,.3); color:var(--accent); }
+        .parr { position:absolute; top:44px; right:44px; width:36px; height:36px; border:1px solid var(--black-5); display:flex; align-items:center; justify-content:center; transition:border-color .3s,background .3s,transform .3s; }
+        .pc:hover .parr { border-color:var(--accent); background:var(--accent); transform:rotate(45deg); }
+        .pc:hover .parr svg { stroke:var(--black); }
+
+        /* SKILLS */
+        #habilidades { background:var(--black); }
+        .sk-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+        .sk-label { font-family:var(--f-m); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); margin-bottom:28px; }
+        .sk-row { margin-bottom:24px; }
+        .sk-top { display:flex; justify-content:space-between; margin-bottom:10px; }
+        .sk-name { font-size:.96rem; font-weight:700; }
+        .sk-pct { font-family:var(--f-m); font-size:.76rem; color:var(--accent); }
+        .sk-track { height:2px; background:var(--black-4); }
+        .sk-fill { height:100%; background:var(--accent); width:0%; transition:width 1.4s cubic-bezier(.16,1,.3,1); position:relative; }
+        .sk-fill::after { content:''; position:absolute; right:-1px; top:-3px; width:8px; height:8px; background:var(--accent); border-radius:50%; }
+        .tgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--black-4); }
+        .tcell { background:var(--black-1); padding:22px 16px; display:flex; flex-direction:column; align-items:center; gap:9px; transition:background .3s; cursor:none; }
+        .tcell:hover { background:var(--black-3); }
+        .tcell:hover svg { stroke:var(--accent); }
+        .tname { font-family:var(--f-m); font-size:.58rem; letter-spacing:.1em; color:var(--dimmer); text-transform:uppercase; text-align:center; }
+
+        /* ABOUT */
+        #sobre-mi { background:var(--black-2); }
+        .about-g { display:grid; grid-template-columns:1fr 1.2fr; gap:90px; align-items:center; }
+        .cbox { background:var(--black-3); border:1px solid var(--black-5); padding:42px; position:relative; }
+        .cbox::before { content:''; position:absolute; top:10px; right:-10px; width:100%; height:100%; border:1px solid var(--black-5); z-index:-1; }
+        .ctag { font-family:var(--f-m); font-size:.62rem; letter-spacing:.15em; color:var(--accent); text-transform:uppercase; margin-bottom:14px; }
+        .cbody { font-family:var(--f-m); font-size:.8rem; line-height:2; color:var(--dim); }
+        .ck { color:var(--cyan); } .cs { color:var(--accent); } .cv { color:#fff; }
+        .atext h3 { font-size:1.72rem; font-weight:800; letter-spacing:-.03em; margin-bottom:20px; line-height:1.15; }
+        .atext p { font-family:var(--f-m); font-size:.82rem; line-height:2; color:var(--dim); margin-bottom:12px; }
+        .tl { margin-top:34px; border-left:1px solid var(--black-5); padding-left:22px; }
+        .tli { margin-bottom:24px; position:relative; }
+        .tli::before { content:''; position:absolute; left:-26px; top:6px; width:8px; height:8px; background:var(--black); border:1px solid var(--accent); border-radius:50%; }
+        .tyr { font-family:var(--f-m); font-size:.62rem; letter-spacing:.15em; color:var(--accent); text-transform:uppercase; margin-bottom:4px; }
+        .trole { font-size:.96rem; font-weight:700; margin-bottom:3px; }
+        .tdesc { font-family:var(--f-m); font-size:.72rem; color:var(--dim); }
+
+        /* CONTACT */
+        #contacto { background:var(--black); position:relative; overflow:hidden; }
+        #contacto::before { content:''; position:absolute; bottom:-200px; left:50%; width:500px; height:500px; background:radial-gradient(circle,rgba(232,255,0,.05),transparent 70%); transform:translateX(-50%); pointer-events:none; }
+        .cbox2 { text-align:center; max-width:660px; margin:auto; }
+        .cbig { font-size:clamp(3rem,7vw,6.5rem); font-weight:800; letter-spacing:-.04em; line-height:.92; margin:20px 0 42px; }
+        .cbig .out { -webkit-text-stroke:1px var(--accent); color:transparent; }
+        .clinks { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+        .cl { display:flex; align-items:center; gap:10px; padding:13px 26px; border:1px solid var(--black-4); color:var(--dim); text-decoration:none; font-family:var(--f-m); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; transition:border-color .3s,color .3s,background .3s; cursor:none; }
+        .cl:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-bg); }
+
+        /* FOOTER */
+        footer { background:var(--black-1); border-top:1px solid var(--black-3); padding:26px 48px; display:flex; justify-content:space-between; align-items:center; }
+        footer p { font-family:var(--f-m); font-size:.68rem; letter-spacing:.08em; color:var(--dimmer); }
+        .fdot { width:8px; height:8px; background:var(--accent); border-radius:50%; animation:blink 2s ease infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+        /* RESPONSIVE */
+        @media(max-width:900px){
+            nav { padding:18px 24px; }
+            .nl { display:none; flex-direction:column; position:fixed; inset:0; background:var(--black); justify-content:center; align-items:center; z-index:99; }
+            .nl.open { display:flex; }
+            .nl a { font-size:1rem; padding:18px; }
+            .hbg { display:flex; z-index:200; }
+            section { padding:80px 24px; }
+            #inicio { padding:90px 24px 60px; }
+            .hero-inner { grid-template-columns:1fr; }
+            .hright { display:none; }
+            .pgrid { grid-template-columns:1fr; }
+            .sk-grid { grid-template-columns:1fr; gap:56px; }
+            .about-g { grid-template-columns:1fr; gap:44px; }
+            .sh2 { flex-direction:column; align-items:flex-start; gap:16px; }
+            .sline { display:none; }
+            footer { flex-direction:column; gap:12px; text-align:center; }
+            .sh { left:24px; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<!-- NAV -->
+<nav id="nav">
+    <a href="#inicio" class="logo">EV<em>.</em></a>
+    <ul class="nl" id="nl">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#habilidades">Habilidades</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <button class="hbg" id="hbg"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+    <div class="hero-inner">
+        <div>
+            <div class="htag">Disponible para proyectos</div>
+            <h1 class="hname">Edgar<br><span class="a">Vásquez</span></h1>
+            <p class="hsub">
+                Estudiante de Ing. en Software · México<br>
+                Odoo SaaS &amp; Studio · Python · IA Visual<br>
+                Construyendo soluciones reales desde el inicio.
+            </p>
+            <div class="hbtns">
+                <a href="#proyectos" class="btn-p"><span>Ver Proyectos</span></a>
+                <a href="#contacto" class="btn-o">Trabajemos juntos</a>
+            </div>
+        </div>
+        <div class="hright">
+            <div class="avwrap">
+                <div class="ring">
+                    <div class="ring-inner">
+                        <span class="initials">EV</span>
+                    </div>
+                </div>
+                <div class="hstats">
+                    <div class="stat"><div class="sn" data-count="4">0</div><div class="sl">Proyectos</div></div>
+                    <div class="stat"><div class="sn" data-count="3">0</div><div class="sl">Tecnologías</div></div>
+                    <div class="stat"><div class="sn" data-count="100">0</div><div class="sl">% Motivación</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sh">
+        <span>Scroll</span>
+        <div class="sh-bar"><div class="sh-fill"></div></div>
+    </div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+    <div class="wrap">
+        <div class="sh2 r">
+            <div><div class="snum">01 — Proyectos</div><h2 class="stitle">Trabajo Destacado</h2></div>
+            <div class="sline"></div>
+        </div>
+        <div class="pgrid">
+
+            <div class="pc r d1">
+                <div class="pci">
+                    <div class="pnum">001</div>
+                    <div class="pico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg></div>
+                    <h3 class="pname">Odoo SaaS &amp; Studio</h3>
+                    <p class="pdesc">Configuración avanzada de Odoo SaaS, automatización con acciones de servidor, personalización de vistas y flujos de trabajo. Estudio profundo de la arquitectura de módulos.</p>
+                    <div class="ptags"><span class="ptag">Odoo SaaS</span><span class="ptag">Odoo Studio</span><span class="ptag">Acciones Servidor</span><span class="ptag">Automatización</span></div>
+                </div>
+                <div class="parr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+            </div>
+
+            <div class="pc r d2">
+                <div class="pci">
+                    <div class="pnum">002</div>
+                    <div class="pico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                    <h3 class="pname">Conexión Biométrico a Odoo</h3>
+                    <p class="pdesc">Integración de dispositivos biométricos ZKTeco con Odoo para control de asistencia y gestión de personal en tiempo real mediante SDK y API REST.</p>
+                    <div class="ptags"><span class="ptag">Python</span><span class="ptag">API REST</span><span class="ptag">SDK ZKTeco</span><span class="ptag">Odoo</span></div>
+                </div>
+                <div class="parr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+            </div>
+
+            <div class="pc r d3">
+                <div class="pci">
+                    <div class="pnum">003</div>
+                    <div class="pico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
+                    <h3 class="pname">Proyectos Spring Boot</h3>
+                    <p class="pdesc">Aplicaciones backend con Spring Boot. Arquitectura REST, autenticación JWT y gestión de bases de datos con JPA/Hibernate en entornos empresariales.</p>
+                    <div class="ptags"><span class="ptag">Java</span><span class="ptag">Spring Boot</span><span class="ptag">MySQL</span><span class="ptag">JPA/Hibernate</span></div>
+                </div>
+                <div class="parr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+            </div>
+
+            <div class="pc r d4">
+                <div class="pci">
+                    <div class="pnum">004</div>
+                    <div class="pico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></div>
+                    <h3 class="pname">IA en Cámaras con Python</h3>
+                    <p class="pdesc">Visión por computadora aplicada a cámaras en tiempo real. Detección de objetos y personas usando modelos de inteligencia artificial con Python y OpenCV.</p>
+                    <div class="ptags"><span class="ptag">Python</span><span class="ptag">OpenCV</span><span class="ptag">YOLO</span><span class="ptag">Computer Vision</span></div>
+                </div>
+                <div class="parr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- HABILIDADES -->
+<section id="habilidades">
+    <div class="wrap">
+        <div class="sh2 r">
+            <div><div class="snum">02 — Habilidades</div><h2 class="stitle">Stack Técnico</h2></div>
+            <div class="sline"></div>
+        </div>
+        <div class="sk-grid">
+            <div class="r">
+                <div class="sk-label">Dominio por tecnología</div>
+                <div class="sk-row"><div class="sk-top"><span class="sk-name">Python</span><span class="sk-pct">95%</span></div><div class="sk-track"><div class="sk-fill" data-w="95"></div></div></div>
+                <div class="sk-row"><div class="sk-top"><span class="sk-name">Odoo SaaS &amp; Studio</span><span class="sk-pct">90%</span></div><div class="sk-track"><div class="sk-fill" data-w="90"></div></div></div>
+                <div class="sk-row"><div class="sk-top"><span class="sk-name">OpenCV / IA Visual</span><span class="sk-pct">65%</span></div><div class="sk-track"><div class="sk-fill" data-w="65"></div></div></div>
+                <div class="sk-row"><div class="sk-top"><span class="sk-name">Java &amp; Spring Boot</span><span class="sk-pct">50%</span></div><div class="sk-track"><div class="sk-fill" data-w="50"></div></div></div>
+                <div class="sk-row"><div class="sk-top"><span class="sk-name">PostgreSQL / MySQL</span><span class="sk-pct">50%</span></div><div class="sk-track"><div class="sk-fill" data-w="50"></div></div></div>
+            </div>
+            <div class="r d2">
+                <div class="tgrid">
+                    <div class="tcell"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg><span class="tname">Python</span></div>
+                    <div class="tcell"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg><span class="tname">Odoo</span></div>
+                    <div class="tcell"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg><span class="tname">OpenCV</span></div>
+                    <div class="tcell"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg><span class="tname">Java</span></div>
+                    <div class="tcell"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg><span class="tname">PostgreSQL</span></div>
+                    <div class="tcell"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg><span class="tname">API REST</span></div>
+                    <div class="tcell"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span class="tname">Git</span></div>
+                    <div class="tcell"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg><span class="tname">Spring Boot</span></div>
+                    <div class="tcell"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="1.5"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span class="tname">Linux</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section id="sobre-mi">
+    <div class="wrap">
+        <div class="sh2 r">
+            <div><div class="snum">03 — Sobre mí</div><h2 class="stitle">Quién soy</h2></div>
+            <div class="sline"></div>
+        </div>
+        <div class="about-g">
+            <div class="r">
+                <div class="cbox">
+                    <div class="ctag">// developer.json</div>
+                    <div class="cbody">
+                        {<br>
+                        &nbsp;&nbsp;<span class="ck">"name"</span>: <span class="cs">"Edgar Vásquez"</span>,<br>
+                        &nbsp;&nbsp;<span class="ck">"ubicación"</span>: <span class="cs">"México"</span>,<br>
+                        &nbsp;&nbsp;<span class="ck">"status"</span>: <span class="cs">"Estudiante ING Software"</span>,<br>
+                        &nbsp;&nbsp;<span class="ck">"stack"</span>: [<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"Odoo SaaS"</span>,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"Python"</span>,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"Computer Vision"</span><br>
+                        &nbsp;&nbsp;],<br>
+                        &nbsp;&nbsp;<span class="ck">"disponible"</span>: <span class="cs">true</span><br>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="atext r d2">
+                <h3>Desarrollador en formación,<br>con hambre de crecer.</h3>
+                <p>Soy estudiante de Ingeniería en Software en México, apasionado por el desarrollo backend y la tecnología empresarial. Aunque estoy al inicio de mi camino, ya he trabajado con proyectos reales con Odoo y Python.</p>
+                <p>Me especializo en el ecosistema Odoo SaaS, inteligencia artificial aplicada con Python y sigo aprendiendo Java y Spring Boot. Siempre buscando el siguiente reto que me haga crecer.</p>
+                <div class="tl">
+                    <div class="tli"><div class="tyr">Presente</div><div class="trole">Ing. en Software — En curso</div><div class="tdesc">Programación, estructuras de datos y desarrollo de software</div></div>
+                    <div class="tli"><div class="tyr">Reciente</div><div class="trole">Odoo SaaS &amp; Studio</div><div class="tdesc">Automatizaciones, acciones de servidor y arquitectura de módulos</div></div>
+                    <div class="tli"><div class="tyr">Explorando</div><div class="trole">IA Visual con Python</div><div class="tdesc">Computer vision, detección de objetos y modelos de visión artificial</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+    <div class="wrap">
+        <div class="cbox2 r">
+            <div class="snum" style="display:flex;justify-content:center;">04 — Contacto</div>
+            <div class="cbig">Hagamos<br>algo <span class="out">grande</span></div>
+            <div class="clinks">
+                <a href="mailto:edgarvasquez@gmail.com" class="cl">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    Gmail
+                </a>
+                <!--
+                <a href="https://github.com/" class="cl">GitHub</a>
+                <a href="https://linkedin.com/" class="cl">LinkedIn</a>
+                <a href="#" class="cl">Descargar CV</a>
+                -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Edgar Vásquez · Ing. en Software · México</p>
+    <div class="fdot"></div>
+    <p>Disponible para proyectos</p>
+</footer>
+
+<script>
+    // CURSOR
+    const c1 = document.getElementById('cur'), c2 = document.getElementById('cur2');
+    let mx=0,my=0,fx=0,fy=0;
+    document.addEventListener('mousemove', e => {
+        mx=e.clientX; my=e.clientY;
+        c1.style.left=mx+'px'; c1.style.top=my+'px';
+    });
+    (function loop(){ fx+=(mx-fx)*.12; fy+=(my-fy)*.12; c2.style.left=fx+'px'; c2.style.top=fy+'px'; requestAnimationFrame(loop); })();
+    document.querySelectorAll('a,button,.pc,.tcell').forEach(el=>{
+        el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+        el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+    });
+
+    // NAV
+    const nav=document.getElementById('nav');
+    const secs=['inicio','proyectos','habilidades','sobre-mi','contacto'];
+    window.addEventListener('scroll',()=>{
+        nav.classList.toggle('s',window.scrollY>50);
+        let cur='';
+        secs.forEach(id=>{ const el=document.getElementById(id); if(el&&el.getBoundingClientRect().top<=120) cur=id; });
+        document.querySelectorAll('.nl a').forEach(a=>a.classList.toggle('act',a.getAttribute('href')==='#'+cur));
+    });
+
+    // MOBILE NAV
+    document.getElementById('hbg').addEventListener('click',()=>document.getElementById('nl').classList.toggle('open'));
+    document.querySelectorAll('.nl a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nl').classList.remove('open')));
+
+    // REVEAL
+    const ro=new IntersectionObserver(entries=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } });
+    },{threshold:0.08});
+    document.querySelectorAll('.r').forEach(el=>ro.observe(el));
+
+    // SKILLS
+    const so=new IntersectionObserver(entries=>{
+        entries.forEach(e=>{
+            if(e.isIntersecting){
+                e.target.querySelectorAll('.sk-fill').forEach(b=>{ setTimeout(()=>{ b.style.width=b.dataset.w+'%'; },150); });
+                so.unobserve(e.target);
+            }
+        });
+    },{threshold:0.15});
+    const skS=document.getElementById('habilidades'); if(skS) so.observe(skS);
+
+    // COUNTERS
+    const co=new IntersectionObserver(entries=>{
+        entries.forEach(e=>{
+            if(e.isIntersecting){
+                const t=+e.target.dataset.count; let v=0; const s=t/40;
+                const tm=setInterval(()=>{ v+=s; if(v>=t){v=t;clearInterval(tm);} e.target.textContent=Math.floor(v)+(t>=10?'+':''); },35);
+                co.unobserve(e.target);
+            }
+        });
+    },{threshold:0.5});
+    document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+    // SMOOTH SCROLL
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click',e=>{ const t=document.querySelector(a.getAttribute('href')); if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});} });
+    });
+</script>
+</body>
+</html>
